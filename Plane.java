@@ -1,4 +1,4 @@
-public class Plane {
+public class Plane {	// Plane class is solely used as a constructor, setter, and getter class for the plane using the int arrivalTime as its parameter.
 	private int arrivalTime;
 	public Plane(int arrivalTime) {
 		this.arrivalTime = arrivalTime;
