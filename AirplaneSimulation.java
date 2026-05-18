@@ -5,14 +5,14 @@ class AirportSimulation {
 		LinkedQueue<Plane> landingQueue = new LinkedQueue<>();
 		LinkedQueue<Plane> takeOffQueue = new LinkedQueue<>();
 		Random random = new Random();
-		double landingRate = Double.parseDouble(args[0]);
+		double landingRate = Double.parseDouble(args[0]);	// Uses arg indices to convert a String to a double
 		double takeOffRate = Double.parseDouble(args[1]);
 		double landingTime = Double.parseDouble(args[2]);
 		double takeOffTime = Double.parseDouble(args[3]);
-		boolean runwayBusy = false;
-		double runwayTimer = 0;
+		boolean runwayBusy = false;	// false is the default for the boolean
+		double runwayTimer = 0; // 0 is the default for the int values
 		int currentTime = 0;
-		int simulationDuration = Integer.parseInt(args[4]);
+		int simulationDuration = Integer.parseInt(args[4]); // Uses an arg index to convert a String to an int
 		int totalLandingWait = 0;
 		int totalTakeOffWait = 0;
 		int totalLanded = 0;
@@ -20,7 +20,7 @@ class AirportSimulation {
 		int totalQueueLength = 0;
 
 		for (int i = 0; i < simulationDuration; i++) {
-			double random1 = random.nextDouble();
+			double random1 = random.nextDouble();	// Generates along with random2 two random numbers used for quing new planes
 			double random2 = random.nextDouble();
 			if (random1 < landingRate) {
 				Plane plane = new Plane(currentTime);
@@ -30,7 +30,7 @@ class AirportSimulation {
 				Plane plane = new Plane(currentTime);
 				takeOffQueue.enqueue(plane);
 			}
-			if (!runwayBusy) {
+			if (!runwayBusy) {	// Checks if the runway is busy then checks if the queues are empty to decide on dequing planes and modifying time and plane numbers
 				if (!landingQueue.isEmpty()) {
 					Plane plane = landingQueue.dequeue();
 					totalLandingWait += currentTime - plane.getArrivalTime();
@@ -46,7 +46,7 @@ class AirportSimulation {
 				}
 			}
 			if (runwayBusy) {
-				runwayTimer = runwayTimer - 1;
+				runwayTimer = runwayTimer - 1;	// Decrements until the runway timer is 0
 				if (runwayTimer == 0) {
 					runwayBusy = false;
 				}
@@ -56,7 +56,7 @@ class AirportSimulation {
 		}
 		System.out.println("Total planes landed: " + totalLanded);
 		if (totalLanded > 0) {
-			System.out.println("Average landing wait time: " + (double) totalLandingWait / totalLanded);
+			System.out.println("Average landing wait time: " + (double) totalLandingWait / totalLanded); // Double is used in the end to allow precise averages to be printed
 		} else {
 			System.out.println("No planes landed.");
 		}
